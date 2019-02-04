@@ -10,15 +10,13 @@ class scrape():
   def Scrape(self):
     self.q = pq(url = self.url)
 
-    messages = self.q('div.message span')
+    self.messages = self.q('div.message span')
 
-    for line in messages:
-      res = messages(line).text()
-      print(res)
-
-#      if 'ttp' in res:
-#        print(res)
-
+  def get_all(self):
+    all_res = []
+    for line in self.messages:
+      all_res.append(self.messages(line).text())
+    return all_res
 
 if __name__=='__main__':
   args = sys.argv
@@ -30,7 +28,6 @@ if __name__=='__main__':
   scrape_5ch = scrape(args[1])
   scrape_5ch.Scrape()
 
-  
 
-
-
+  all_res = scrape_5ch.get_all()
+  pprint(all_res)
